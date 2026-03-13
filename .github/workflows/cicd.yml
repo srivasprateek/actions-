@@ -18,19 +18,19 @@ on:
 jobs:
   # every job needs seperate runner, its called parallelism
   code:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: checkout code
         run: echo "COde Clone from GitHub"
   build:
     needs: [code]
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Build Docker Container
         run: echo "Docker Container build"
   test:
     needs: [build]
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Test the container
         run: echo "Testing the container"
