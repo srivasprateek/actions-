@@ -1,13 +1,11 @@
-# this is name of the workflow that will be displayed in the Actions Tab
 name: CICD
 
-# Manual click (deliver) workflow whenever user needs
 on:
-  workflow_dispatch: 
+  workflow_dispatch:
     inputs:
       environment:
         description: This is the environment value where this workflow runs
-        default: 'dev'
+        default: dev
         required: true
         type: choice
         options:
@@ -16,29 +14,43 @@ on:
           - staging
 
 jobs:
-  # every job needs seperate runner, its called parallelism
+
   code:
     runs-on: self-hosted
     steps:
-      - name: checkout code
-        run: echo "COde Clone from GitHub"
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Code stage
+        run: echo "Code cloned from GitHub"
+
   build:
     needs: [code]
     runs-on: self-hosted
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
       - name: Build Docker Container
-        run: echo "Docker Container build"
+        run: echo "Docker container build"
+
   test:
     needs: [build]
     runs-on: self-hosted
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
       - name: Test the container
         run: echo "Testing the container"
-        
+
   deploy:
     if: inputs.environment == 'dev'
-    needs: [build,test]
-    runs-on: ubuntu-latest
+    needs: [build, test]
+    runs-on: self-hosted
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
       - name: Deploying the app
         run: echo "Docker compose deployed the app"
