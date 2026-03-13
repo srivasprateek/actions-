@@ -14,8 +14,8 @@ on:
           - staging
 
 env:
-  RUNNER_TOOL_CACHE: $HOME/actions-runner/toolcache
-  RUNNER_TEMP: $HOME/actions-runner/temp
+  RUNNER_TOOL_CACHE: /Users/dhriti/actions-runner/_work/_tool
+  RUNNER_TEMP: /Users/dhriti/actions-runner/_work/_temp
 
 jobs:
 
